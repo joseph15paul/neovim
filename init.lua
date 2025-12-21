@@ -118,6 +118,23 @@ vim.schedule(function()
   vim.o.clipboard = 'unnamedplus'
 end)
 
+-- Explicitly configure the clipboard tool to use wl-clipboard
+-- This overrides Neovim's default behavior of using the tmux provider
+if vim.fn.has 'wsl' == 0 then -- Optional check: Don't override if in WSL
+  vim.g.clipboard = {
+    name = 'WlClipboard',
+    copy = {
+      ['+'] = 'wl-copy',
+      ['*'] = 'wl-copy',
+    },
+    paste = {
+      ['+'] = 'wl-paste --no-newline',
+      ['*'] = 'wl-paste --no-newline',
+    },
+    cache_enabled = 1,
+  }
+end
+
 -- Enable break indent
 vim.o.breakindent = true
 
@@ -690,6 +707,7 @@ require('lazy').setup({
         },
 
         glslls = {},
+        neocmake = { cmd = { 'neocmakelsp', 'stdio' } },
         -- gopls = {},
         -- pyright = {},
         -- rust_analyzer = {},
@@ -1053,5 +1071,6 @@ require('lspconfig').clangd.setup {
 }
 
 require('lspconfig').glslls.setup {}
+require('lspconfig').neocmake.setup { cmd = { 'neocmakelsp', 'stdio' } }
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
