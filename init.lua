@@ -120,20 +120,6 @@ end)
 
 -- Explicitly configure the clipboard tool to use wl-clipboard
 -- This overrides Neovim's default behavior of using the tmux provider
-if vim.fn.has 'wsl' == 0 then -- Optional check: Don't override if in WSL
-  vim.g.clipboard = {
-    name = 'WlClipboard',
-    copy = {
-      ['+'] = 'wl-copy',
-      ['*'] = 'wl-copy',
-    },
-    paste = {
-      ['+'] = 'wl-paste --no-newline',
-      ['*'] = 'wl-paste --no-newline',
-    },
-    cache_enabled = 1,
-  }
-end
 
 -- Enable break indent
 vim.o.breakindent = true
@@ -688,26 +674,9 @@ require('lazy').setup({
       --  - settings (table): Override the default settings passed when initializing the server.
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
       local servers = {
-        clangd = {
-          cmd = {
-            'clangd',
-            '--background-index',
-            '--clang-tidy',
-            '--header-insertion=iwyu',
-            '--completion-style=detailed',
-            '--fallback-style=llvm',
-          },
-          capabilities = {
-            offsetEncoding = { 'utf-16' },
-          },
-          root_dir = require('lspconfig').util.root_pattern('.git', 'compile_commands.json', 'compile_flags.txt'),
-          on_attach = function(client, bufnr)
-            print('SUCCESS: clangd attached to buffer ' .. bufnr)
-          end,
-        },
-
+        clangd = {},
         glslls = {},
-        neocmake = { cmd = { 'neocmakelsp', 'stdio' } },
+        neocmake = {},
         -- gopls = {},
         -- pyright = {},
         -- rust_analyzer = {},
@@ -760,12 +729,11 @@ require('lazy').setup({
         automatic_installation = false,
         handlers = {
           function(server_name)
-            vim.notify('Logg: ' .. server_name, vim.log.levels.INFO) -- Use this instead
+            vim.notify('LSP server name: ' .. server_name, vim.log.levels.INFO) -- Use this instead
             local server = servers[server_name] or {}
             -- This handles overriding only values explicitly passed
             -- by the server configuration above. Useful when disabling
             -- certain features of an LSP (for example, turning off formatting for ts_ls)
-            print('trying ' + server_name)
             server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
             require('lspconfig')[server_name].setup(server)
           end,
@@ -1050,26 +1018,7 @@ require('lazy').setup({
   },
 })
 
-require('lspconfig').clangd.setup {
-  {
-    cmd = {
-      'clangd',
-      '--background-index',
-      '--clang-tidy',
-      '--header-insertion=iwyu',
-      '--completion-style=detailed',
-      '--fallback-style=llvm',
-    },
-    capabilities = {
-      offsetEncoding = { 'utf-16' },
-    },
-    root_dir = require('lspconfig').util.root_pattern('.git', 'compile_commands.json', 'compile_flags.txt'),
-    on_attach = function(client, bufnr)
-      print('SUCCESS: clangd attached to buffer ' .. bufnr)
-    end,
-  },
-}
-
+require('lspconfig').clangd.setup {}
 require('lspconfig').glslls.setup {}
 require('lspconfig').neocmake.setup { cmd = { 'neocmakelsp', 'stdio' } }
 -- The line beneath this is called `modeline`. See `:help modeline`
