@@ -1,46 +1,4 @@
 return {
-  -- the colorscheme should be available when starting Neovim
-  {
-    "folke/tokyonight.nvim",
-    lazy = false, -- make sure we load this during startup if it is your main colorscheme
-    priority = 1000, -- make sure to load this before all the other start plugins
-    config = function()
-      -- load the colorscheme here
-      vim.cmd([[colorscheme tokyonight]])
-    end,
-  },
-
-  {
-    'nvim-telescope/telescope.nvim', version = '*',
-    dependencies = {
-        'nvim-lua/plenary.nvim',
-        -- optional but recommended
-        { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
-    }
-  },
-
-  {
-  'nvim-treesitter/nvim-treesitter',
-  lazy = false,
-  build = ':TSUpdate'
-  },
-
-  {
-  "nvim-tree/nvim-tree.lua",
-  version = "*",
-  lazy = false,
-  dependencies = {
-    "nvim-tree/nvim-web-devicons",
-  },
-  config = function()
-    require("nvim-tree").setup {}
-  end,
- },
-
-    -- I have a separate config.mappings file where I require which-key.
-  -- With lazy the plugin will be automatically loaded when it is required somewhere
-  { "folke/which-key.nvim", lazy = true },
-
   {
     "nvim-neorg/neorg",
     -- lazy-load on filetype
@@ -63,21 +21,6 @@ return {
     end,
   },
 
-  {
-    "hrsh7th/nvim-cmp",
-    -- load cmp on InsertEnter
-    event = "InsertEnter",
-    -- these dependencies will only be loaded when cmp loads
-    -- dependencies are always lazy-loaded unless specified otherwise
-    dependencies = {
-      "hrsh7th/cmp-nvim-lsp",
-      "hrsh7th/cmp-buffer",
-    },
-    config = function()
-      -- ...
-    end,
-  },
-
   -- if some code requires a module from an unloaded plugin, it will be automatically loaded.
   -- So for api plugins like devicons, we can always set lazy=true
   { "nvim-tree/nvim-web-devicons", lazy = true },
@@ -85,14 +28,6 @@ return {
   -- you can use the VeryLazy event for things that can
   -- load later and are not important for the initial UI
   { "stevearc/dressing.nvim", event = "VeryLazy" },
-
-  {
-    "Wansmer/treesj",
-    keys = {
-      { "J", "<cmd>TSJToggle<cr>", desc = "Join Toggle" },
-    },
-    opts = { use_default_keymaps = false, max_join_length = 150 },
-  },
 
   {
     "monaqa/dial.nvim",
