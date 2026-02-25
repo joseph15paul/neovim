@@ -15,11 +15,18 @@ return {
   },
   {
     "neovim/nvim-lspconfig",
+    lazy = false,
     config = function()
-      vim.lsp.enable('lus_ls')
-      vim.lsp.enable('clangd')
-      vim.keymap.set('n', 'K', vim.lsp.buf.hover, {})
-    end
-  }
+      -- Disable inlay hints globally (optional)
+      vim.lsp.inlay_hint.enable(false)
+
+      -- Setup servers (Neovim 0.11 style)
+      vim.lsp.config("lua_ls", {})
+      vim.lsp.enable("lua_ls")
+
+      vim.lsp.config("clangd", {})
+      vim.lsp.enable("clangd")
+    end,
+  },
 }
 
