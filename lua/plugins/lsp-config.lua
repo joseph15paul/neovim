@@ -67,17 +67,11 @@ return {
       vim.lsp.inlay_hint.enable(false)
 
       -- Setup servers (Neovim 0.11 style)
-      local capabilities = require('cmp_nvim_lsp').default_capabilities()
-      -- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
-      vim.lsp.config('clangd', {
-        capabilities = capabilities,
-      })
-      vim.lsp.enable 'clangd'
-
-      vim.lsp.config('lua_ls', {
-        capabilities = capabilities,
-      })
+      vim.lsp.config('lua_ls', {})
       vim.lsp.enable 'lua_ls'
+
+      vim.lsp.config('clangd', {})
+      vim.lsp.enable 'clangd'
     end,
   },
 }
