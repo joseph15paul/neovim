@@ -20,15 +20,24 @@ return {
       sources = {
         null_ls.builtins.formatting.stylua,
         null_ls.builtins.completion.spell,
-        null_ls.builtins.diagnostics.gccdiag,
         null_ls.builtins.formatting.clang_format.with {
           filetypes = { 'c', 'cpp', 'objc', 'objcpp', 'cuda' },
           -- optional: specify a style
-          extra_args = { '--style=Google' }, -- or LLVM, Mozilla, WebKit, file
+          extra_args = { '--style=file' }, -- or LLVM, Mozilla, WebKit, file
         },
         require 'none-ls.diagnostics.cpplint',
       },
+      on_attach = function(client, bufnr)
+        if client.supports_method 'textDocument/formatting' then
+          vim.api.nvim_create_autocmd('BufWritePre', {
+            buffer = bufnr,
+            callback = function()
+              vim.lsp.buf.format { bufnr = bufnr }
+            end,
+          })
+        end
+      end,
     }
-    vim.keymap.set('n', '<leader>gf', vim.lsp.buf.format, {})
+    vim.keymap.set('n', '<leader>gf', vim.lsp.buf.format, { desc = 'Format buffer' })
   end,
 }

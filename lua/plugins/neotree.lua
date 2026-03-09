@@ -15,8 +15,9 @@ return {
         },
       },
     }
+
     vim.keymap.set('n', '<leader>fs', function()
       vim.cmd 'Neotree filesystem reveal left'
-    end, {})
+    end, { desc = 'File [S]ystem (Neo-tree)' })
   end,
 }
