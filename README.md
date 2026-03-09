@@ -1,0 +1,3 @@
+requirements - 
+sudo apt install python3-venv
+
