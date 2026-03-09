@@ -155,6 +155,9 @@ vim.o.splitbelow = true
 vim.o.list = true
 vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
 
+vim.opt.tabstop = 4
+vim.opt.softtabstop = 4
+
 -- Preview substitutions live, as you type!
 vim.o.inccommand = 'split'
 
@@ -675,7 +678,6 @@ require('lazy').setup({
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
       local servers = {
         clangd = {},
-        glslls = {},
         neocmake = {},
         -- gopls = {},
         -- pyright = {},
@@ -1018,8 +1020,7 @@ require('lazy').setup({
   },
 })
 
-require('lspconfig').clangd.setup {}
-require('lspconfig').glslls.setup {}
+--require('lspconfig').clangd.setup {}
 require('lspconfig').neocmake.setup { cmd = { 'neocmakelsp', 'stdio' } }
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
