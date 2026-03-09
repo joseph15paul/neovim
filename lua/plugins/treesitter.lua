@@ -4,7 +4,7 @@ return {
   lazy = false,
   config = function()
     require('nvim-treesitter').setup {
-      install_dir = vim.fn.stdpath('data') .. '/site',
+      install_dir = vim.fn.stdpath 'data' .. '/site',
       auto_install = true,
       ensure_installed = {
         'lua',
@@ -13,16 +13,13 @@ return {
         'cpp',
         'c_sharp',
         'dockerfile',
-        'rust',
-        'javascript',
-        'zig',
-        "markdown",
-        "markdown_inline"
+        'vimdoc',
+        'markdown',
+        'markdown_inline',
       },
       highlight = {
         enable = true,
       },
     }
-  end
+  end,
 }
-
