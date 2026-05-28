@@ -9,6 +9,7 @@ return {
       ensure_installed = {
         'clang-format',
         'cpplint',
+        'ruff',
       },
       auto_update = true,
       run_on_start = true,

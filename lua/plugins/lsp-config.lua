@@ -2,14 +2,21 @@ return {
   {
     'mason-org/mason-lspconfig.nvim',
     opts = {
-      ensure_installed = { 'lua_ls', 'clangd' },
+      ensure_installed = { 'lua_ls', 'clangd', 'basedpyright' },
     },
     dependencies = {
-      { 'mason-org/mason.nvim', opts = {} },
-      'neovim/nvim-lspconfig',
+      {
+        'mason-org/mason.nvim',
+        opts = {
+          registries = {
+            'github:mason-org/mason-registry',
+            'github:Crashdummyy/mason-registry',
+          },
+        },
+      },
     },
   },
-  { 'mason-org/mason.nvim', opts = {} },
+
   {
     'neovim/nvim-lspconfig',
     lazy = false,
